@@ -16,6 +16,11 @@ public class Slot {
 	}
 	public void setOccupied(boolean isOccupied) {
 		this.isOccupied = isOccupied;
+		if (this.isOccupied == false) {
+			//remove vehicle as well
+			Vehicle dummyVehicle = new Vehicle ();
+			this.vehicle = dummyVehicle;
+		}
 	}
 	public Vehicle getVehicle() {
 		return vehicle;
