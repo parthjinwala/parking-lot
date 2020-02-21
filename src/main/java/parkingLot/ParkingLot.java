@@ -72,5 +72,13 @@ public class ParkingLot {
 		return slotNumbers;
 	}
 	
+	public String status() {
+		String stat = "";
+		for(Slot slot: slots)
+			stat = stat + slot + "\n";
+		if (stat.compareTo("") != 0)
+			stat = stat.substring(0, stat.length() - 1);
+		return stat;
+	}
 	
 }
