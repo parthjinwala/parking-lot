@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
+import java.util.TreeSet;
 
 public class ParkingLot {
 	ArrayList<Slot> slots;
@@ -42,7 +42,7 @@ public class ParkingLot {
 					colourSlotMap.put(vehicle.getColor(), slotSet);
 				}
 				else {
-					Set<Slot> slotSet = new HashSet<>();
+					Set<Slot> slotSet = new TreeSet<>();
 					slotSet.add(slot);
 					colourSlotMap.put(vehicle.getColor(), slotSet);
 				}				

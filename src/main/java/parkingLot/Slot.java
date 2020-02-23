@@ -1,6 +1,6 @@
 package parkingLot;
 
-public class Slot {
+public class Slot implements Comparable<Slot> {
 	int slotNumber;
 	boolean isOccupied;
 	Vehicle vehicle;
@@ -33,7 +33,10 @@ public class Slot {
 	public String toString() {
 		return slotNumber + "\t" + vehicle.regNumber + "\t" + vehicle.color;
 	}
-	
-	
-	
+	@Override
+	public int compareTo(Slot arg0) {
+		if(slotNumber < arg0.getSlotNumber())
+			return -1;
+		return 1;
+	}
 }
