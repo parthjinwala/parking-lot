@@ -7,6 +7,8 @@
 # This variable contains absolute path of this `parking_lot` script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+java -jar $DIR/../target/ParkingLot-0.0.1-SNAPSHOT.jar $1
+
 # Use DIR variable above to pinpoint your jar/executable/main class
 # e.g.
 # - if java

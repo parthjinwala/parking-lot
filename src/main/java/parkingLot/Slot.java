@@ -31,12 +31,14 @@ public class Slot implements Comparable<Slot> {
 	
 	@Override
 	public String toString() {
-		return slotNumber + "\t" + vehicle.regNumber + "\t" + vehicle.color;
+		return slotNumber + "           " + vehicle.regNumber + "      " + vehicle.color;
 	}
 	@Override
 	public int compareTo(Slot arg0) {
 		if(slotNumber < arg0.getSlotNumber())
 			return -1;
+		else if(slotNumber == arg0.getSlotNumber())
+			return 0;
 		return 1;
 	}
 }

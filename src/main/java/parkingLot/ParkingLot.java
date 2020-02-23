@@ -56,7 +56,18 @@ public class ParkingLot {
 	
 	public String leave(int index) {
 		if (index >= 1 && index <= size) {
-			this.slots.get(index-1).setOccupied(false);
+			Slot s = this.slots.get(index-1);
+			if (s.isOccupied() == true) {
+				regNumberSlotMap.remove(s.getVehicle().getRegNumber());
+				Set<Slot> slotSet = colourSlotMap.get(s.getVehicle().getColor());
+				System.out.println(slotSet.toString());
+				System.out.println(s);
+				boolean b = slotSet.remove(s);
+				System.out.println(b);
+				colourSlotMap.put(s.getVehicle().getColor(), slotSet);
+				s.setOccupied(false);
+				this.slots.set(index-1, s);
+			}
 			return "Slot number " + index + " is free";
 		}
 		return "Please enter slot number within Parking Lot size";
@@ -100,7 +111,8 @@ public class ParkingLot {
 	}
 	
 	public String status() {
-		String stat = "";
+		String stat = "Slot No.    Registration No    Colour\n";
+		
 		for(Slot slot: slots) {
 			if(slot.isOccupied() == false)
 				continue;
