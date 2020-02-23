@@ -12,9 +12,11 @@ public class ParkingLot {
 	Map<String,Slot> regNumberSlotMap;
 	
 	int size;
+	int occupied;
 	
 	public ParkingLot (int size) {
 		this.size = size;
+		occupied = 0;
 		slots = new ArrayList<> ();
 		colourSlotMap = new HashMap<>();
 		regNumberSlotMap = new HashMap<>();
@@ -32,13 +34,17 @@ public class ParkingLot {
 			if (slot.isOccupied() == false) {
 				slot.setOccupied(true);
 				slot.setVehicle(vehicle);
+				occupied++;
 				
-				if(colourSlotMap.containsKey(vehicle.getColor()))
-					colourSlotMap.get(vehicle.getColor()).add(slot);
+				if(colourSlotMap.containsKey(vehicle.getColor())) {
+					Set<Slot> slotSet = colourSlotMap.get(vehicle.getColor());
+					slotSet.add(slot);
+					colourSlotMap.put(vehicle.getColor(), slotSet);
+				}
 				else {
-					Set<Slot> setSlot = new HashSet<>();
-					setSlot.add(slot);
-					colourSlotMap.put(vehicle.getColor(), setSlot);
+					Set<Slot> slotSet = new HashSet<>();
+					slotSet.add(slot);
+					colourSlotMap.put(vehicle.getColor(), slotSet);
 				}				
 				regNumberSlotMap.put(vehicle.getRegNumber(), slot);
 				
@@ -58,7 +64,7 @@ public class ParkingLot {
 		switch (property) {
 		case "colour":
 			for(Slot slot: colourSlotMap.get(value)) 
-				slotNumbers = slot.getSlotNumber() + ",";
+				slotNumbers = slotNumbers + slot.getSlotNumber() + ",";
 			break;
 		case "registration number":
 			slotNumbers = regNumberSlotMap.get(value).getVehicle().getRegNumber();
@@ -69,13 +75,29 @@ public class ParkingLot {
 		
 		if (slotNumbers.length() == 0)
 			return "Not found";
-		return slotNumbers;
+		
+		return slotNumbers.substring(0, slotNumbers.length()-1);
+	}
+	
+	public String getRegistrationNumberForCar(String colour) {
+		String registrationNumbers = "";
+		
+		for(Slot slot: colourSlotMap.get(colour))
+			registrationNumbers = registrationNumbers + slot.getVehicle().getRegNumber();
+		
+		if (registrationNumbers.length() == 0)
+			return "Not found";
+		
+		return registrationNumbers.substring(0, registrationNumbers.length()-1);
 	}
 	
 	public String status() {
 		String stat = "";
-		for(Slot slot: slots)
+		for(Slot slot: slots) {
+			if(slot.isOccupied() == false)
+				continue;
 			stat = stat + slot + "\n";
+		}
 		if (stat.compareTo("") != 0)
 			stat = stat.substring(0, stat.length() - 1);
 		return stat;
