@@ -9,5 +9,5 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 cd $DIR/../
-mvn clean instal
+mvn clean install
 mvn test

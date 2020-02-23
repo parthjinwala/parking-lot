@@ -60,10 +60,7 @@ public class ParkingLot {
 			if (s.isOccupied() == true) {
 				regNumberSlotMap.remove(s.getVehicle().getRegNumber());
 				Set<Slot> slotSet = colourSlotMap.get(s.getVehicle().getColor());
-				System.out.println(slotSet.toString());
-				System.out.println(s);
 				boolean b = slotSet.remove(s);
-				System.out.println(b);
 				colourSlotMap.put(s.getVehicle().getColor(), slotSet);
 				s.setOccupied(false);
 				this.slots.set(index-1, s);
