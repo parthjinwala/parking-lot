@@ -22,6 +22,7 @@ public class ParkingLotApplication {
 		}
 		else {
 			//Read instructions from file
+			
 		}
 			
 	}

@@ -55,8 +55,11 @@ public class ParkingLot {
 	}
 	
 	public String leave(int index) {
-		this.slots.get(index).setOccupied(false);
-		return "Slot number " + index + " is free";
+		if (index >= 1 && index <= size) {
+			this.slots.get(index-1).setOccupied(false);
+			return "Slot number " + index + " is free";
+		}
+		return "Please enter slot number within Parking Lot size";
 	}
 	
 	public String getSlotForCar(String property, String value) {
@@ -64,10 +67,15 @@ public class ParkingLot {
 		switch (property) {
 		case "colour":
 			for(Slot slot: colourSlotMap.get(value)) 
-				slotNumbers = slotNumbers + slot.getSlotNumber() + ",";
+				slotNumbers = slotNumbers + slot.getSlotNumber() + ", ";
+			
+			if (slotNumbers.length() != 0)
+				slotNumbers = slotNumbers.substring(0, slotNumbers.length()-2);
 			break;
 		case "registration number":
-			slotNumbers = regNumberSlotMap.get(value).getVehicle().getRegNumber();
+			Slot slot = regNumberSlotMap.get(value);
+			if(slot != null)
+				slotNumbers = slot.getSlotNumber() + "";
 			break;
 		default:
 			return property + " is not implemented yet";
@@ -76,19 +84,19 @@ public class ParkingLot {
 		if (slotNumbers.length() == 0)
 			return "Not found";
 		
-		return slotNumbers.substring(0, slotNumbers.length()-1);
+		return slotNumbers;
 	}
 	
 	public String getRegistrationNumberForCar(String colour) {
 		String registrationNumbers = "";
 		
 		for(Slot slot: colourSlotMap.get(colour))
-			registrationNumbers = registrationNumbers + slot.getVehicle().getRegNumber();
+			registrationNumbers = registrationNumbers + slot.getVehicle().getRegNumber() + ", ";
 		
 		if (registrationNumbers.length() == 0)
 			return "Not found";
 		
-		return registrationNumbers.substring(0, registrationNumbers.length()-1);
+		return registrationNumbers.substring(0, registrationNumbers.length()-2);
 	}
 	
 	public String status() {
