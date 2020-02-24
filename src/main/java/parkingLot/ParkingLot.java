@@ -74,6 +74,8 @@ public class ParkingLot {
 		String slotNumbers="";
 		switch (property) {
 		case "colour":
+			if (colourSlotMap.get(value) == null)
+				break;
 			for(Slot slot: colourSlotMap.get(value)) 
 				slotNumbers = slotNumbers + slot.getSlotNumber() + ", ";
 			
@@ -97,6 +99,8 @@ public class ParkingLot {
 	
 	public String getRegistrationNumberForCar(String colour) {
 		String registrationNumbers = "";
+		if (colourSlotMap.get(colour) == null)
+			return "";
 		
 		for(Slot slot: colourSlotMap.get(colour))
 			registrationNumbers = registrationNumbers + slot.getVehicle().getRegNumber() + ", ";
